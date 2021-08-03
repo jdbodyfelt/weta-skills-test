@@ -1,6 +1,7 @@
 # weta-skills-test
 
-This repo holds output for JD Bodyfelt's skills test, requested by Sherryn Hunt in consideration of my candidacy at Weta Digital for Full Stack Senior Web Developer. 
+This repo holds output for JD Bodyfelt's skills test, requested by Sherryn Hunt in consideration of my candidacy at Weta Digital for Full Stack Senior Web Developer. This code was developed in VS Code running
+on an Ubuntu 20.04 box under Python 3.9.6. 
 
 ## Original Problem Statement
 
