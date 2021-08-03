@@ -51,11 +51,53 @@ I'm fairly confident in my differentials, so I'm going to chalk this 2/3 discrep
 
 ## Solution Implementation
 
-**Note:** As I am currently teaching myself TypeScript, static/duck typing have been on my mind a bit, so I'll be using static-typed python in my functional calls. 
+**Note:** As I am currently teaching myself TypeScript, static/duck typing have been on my mind a bit, so I'll be using static-typed python in any functional calls. 
 
 For our analytical solution above, a simple python function is created: 
 ```python
-def timeToBoom(X: int, rates: List[int]):
-
+def secToBoom(line: str):
+    rates = [float(obj) for obj in line.rstrip().split(' ')]
+    storage = rates.pop(0)
+    rates = [1.0/r for r in rates]
+    rate = sum(rates)
+    ETA = ceil(storage/rate)
+    print(ETA)
 ```
+This is fairly simple to follow, if you're familiar with object comprehension in python (mainly lists here).
+I take the line, strip off the `\n` character, and split on whitespace. Since the problem brief specifically stated _"..cope with large numbers of processes and large quantities of disk space"_, I perform a typecast to float on these strings (rather than integer) to address the actual numbers. 
+
+In order to address the required piping syntax, a simple `sys` call can be used. I've chosen to keep the line-by-line processing serial, as there are only 7 lines in `numbers.txt`, but we can certainly implement `multiprocessing` pools to perhaps distribute the sum across cores, or even use `tensorflow` to do large-scale mathematics across the GPU. Since the given text file is simplified, I'll keep my code simplified, and just call my analytical function with
+```python
+import sys
+for line in sys.stdin:
+    secToBoom(line)
+``` 
+---
+ ## Runtime and Unit Test
+
+ The file `mySolution.py` combines the line-by-line `stdin` call with the function definition. 
+ As an initial runtime test, I call it with the example and get:
+```bash
+echo -e "4 3 7\n15 2 4 3 6\n16 2 4 3 6" | python mySolution.py 
+9
+12
+13
+```
+
+Running [the requested dataset](https://github.com/acky6012/lincolnshire-poacher) which has been downloaded locally to `numbers.txt`, I get the following result:
+```bash
+cat numbers.txt | python mySolution.py
+9
+12
+13
+590496223
+181210885613
+204221389795924037861376
+154
+```
+which I leave to candidacy reviewers to validate. Thank you for your time, and this fun activity to showcase my Python skillset. 
+
+
+
+
 
